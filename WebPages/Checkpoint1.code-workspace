@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../Checkpoint1"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../MODULO 1"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "MODULO_2"
+	}
+}

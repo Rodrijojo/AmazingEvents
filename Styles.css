@@ -1,0 +1,29 @@
+.imagen-logo {
+    width: 50%;
+}
+
+.background-color {
+    background-color: white !important;
+}
+
+.icon-size {
+    font-size: 24px !important;
+}
+
+.carousel-height {
+    height: 30vh !important;
+}
+
+.color-h5 {
+    color: black !important;
+    font-size: 60px !important;
+    font-weight: bold !important;
+    margin-bottom: 10vh;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
