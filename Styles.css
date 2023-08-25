@@ -6,8 +6,17 @@
     background-color: white !important;
 }
 
+.background-color-main {
+    background: linear-gradient(to bottom, #fafafa, #a8a8a8);
+}
+
 .icon-size {
     font-size: 24px !important;
+}
+
+.sticky-header {
+    position: sticky !important;
+    top: 0 !important;
 }
 
 .carousel-height {
@@ -21,9 +30,58 @@
     margin-bottom: 10vh;
 }
 
+.main-height {
+    min-height: 85vh !important;
+}
+
+.nav-height {
+    height: 10vh !important;
+}
+
+.navbar img {
+    height: 100% !important;
+}
+
+.card-img {
+    width: 100% !important;
+    border: solid 1px black;
+}
+
 footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.socials img {
+    width: 4vh !important;
+    margin: 1vh;
+}
+
+.form-size {
+    width: 50vh !important;
+}
+
+.details-card {
+    margin-top: 12rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vh !important;
+    height: 50% !important;
+    border: solid 50px rgb(192, 189, 189);
+}
+
+#Details4 {
+    margin-bottom: 10rem !important;
+}
+
+.border-card {
+    border: solid 2px black;
+    padding: 11px;
+}
+
+.details-card img {
+    border: solid 2px black;
 }

@@ -10,7 +10,71 @@
     <title>Contact | Amazing Events</title>
 </head>
 <body>
-    
+    <header class="d-flex flex-direction-row w-100 pt-4 pb-4 pr-4 bg-light">
+        <!--Logo-->
+        <div class="col-lg-3 d-flex justify-content-center align-items-center">
+            <img src="../Resources/amazing_brand.png" alt="BrandLogo" class="img-fluid imagen-logo">
+        </div>
+        <!--NavBar-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary col-lg-9 bg-light">
+            <div class="container-fluid bg-light">
+                <div>
+                    <i class="bi bi-house icon-size"></i>
+                    <a class="navbar-brand p-2" href="Index.html">HOME</a>
+                </div>
+                <div>
+                    <i class="bi bi-calendar-event icon-size"></i>
+                    <a class="navbar-brand p-2" href="UpcomingEvents.html">UPCOMING EVENTS</a>
+                </div>
+                <div>
+                    <i class="bi bi-calendar-event-fill icon-size"></i>
+                    <a class="navbar-brand p-2" href="PastEvents.html">PAST EVENTS</a>
+                </div>
+                <div>
+                    <i class="bi bi-person-lines-fill icon-size"></i>
+                    <a class="navbar-brand p-2" href="#">CONTACT</a>
+                </div>
+                <div>
+                    <i class="bi bi-bar-chart icon-size"></i>
+                    <a class="navbar-brand p-2" href="Stats.html">STATS</a>
+                </div>
+            </div>
+          </nav>
+    </header>
+
+    <main class="main-height bg-body-tertiary">
+        <div class="d-flex justify-content-center pt-5">
+            <h1>Contact us</h1>
+        </div>
+
+        <form action="" method="get" class="d-flex flex-column justify-content-center align-items-center pt-4">
+            <div class="mb-3 form-size">
+                <label for="full_name" class="form-label">Full name:</label>
+                <input type="text" class="form-control" id="full_name" placeholder="Name Lastname">
+            </div>
+            <div class="mb-3 form-size">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            </div>
+            <div class="mb-3 form-size">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="d-flex justify-content-center align-items-center">
+        <div class="socials d-flex col-lg-4">
+          <a href="https://www.facebook.com/" target="_blank"><img src="../Resources/facebook.png" alt="Facebook"></a>
+          <a href="https://www.instagram.com/" target="_blank"><img src="../Resources/instagram.png" alt="Instagram"></a>
+          <a href="https://www.whatsapp.com/" target="_blank"><img src="../Resources/whatsapp.png" alt="WhatsApp"></a>
+        </div>
+        <p class="col-lg-4">All rights reserved &copy; 2023 - Marcos Rodríguez</p>
+        <p class="col-lg-4">COHORT FS051 JAVA</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
