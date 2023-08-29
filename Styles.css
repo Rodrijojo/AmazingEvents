@@ -85,3 +85,7 @@ footer {
 .details-card img {
     border: solid 2px black;
 }
+
+.table.width{
+    width: 80vh !important;
+}
