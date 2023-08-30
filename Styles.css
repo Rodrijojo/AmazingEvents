@@ -89,3 +89,9 @@ footer {
 .table.width{
     width: 80vh !important;
 }
+
+.color-details{
+    color: black !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+}
