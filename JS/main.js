@@ -3,6 +3,7 @@ const eventos = data.events;
 const cardsContainer = document.getElementById("cardsContainer")
 
 let card = "";
+
 for (const evento of eventos) {
     card += `<div class="card" style="width: 18rem;">
     <div class="card-body d-flex flex-column justify-content-center align-items-center">

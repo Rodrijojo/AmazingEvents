@@ -1,6 +1,9 @@
 const eventos = data.events;
+
 var currentDate = data.currentDate;
+
 currentDate = currentDate.split("-");
+
 console.log(currentDate);
 
 const cardsContainer = document.getElementById("cardsContainer")
