@@ -29,7 +29,7 @@ function crearCard(eventos) {
                 <p class="card-text">${evento.description}</p>
                 <div class="d-flex justify-content-around align-items-baseline gap-4">
                     <p>$${evento.price}</p>
-                    <button type="button" class="btn btn-primary"><a href="Details.html#Details1" class="card-link color-details">Details</a></button>                  
+                    <button type="button" class="btn btn-primary"><a href="Details.html?id=${evento._id}" class="card-link color-details">Details</a></button>                  
                 </div>
                 </div>
             </div>`

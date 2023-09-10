@@ -64,8 +64,10 @@ footer {
 }
 
 .details-card {
-    margin-top: 12rem !important;
+    margin-top: 8rem !important;
     display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     width: 100vh !important;
@@ -94,4 +96,14 @@ footer {
     color: black !important;
     font-weight: bold !important;
     text-decoration: none !important;
+}
+
+.containerDetails {
+    min-height: 100vh;
+}
+
+@media (max-width: 768px){
+    .details-card{
+        width: 40vh !important;
+    }
 }
