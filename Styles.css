@@ -92,6 +92,10 @@ footer {
     width: 80vh !important;
 }
 
+.card-height {
+    min-height : 35vh !important;
+}
+
 .color-details{
     color: black !important;
     font-weight: bold !important;
@@ -105,5 +109,11 @@ footer {
 @media (max-width: 768px){
     .details-card{
         width: 40vh !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .form-size {
+        width: 30vh !important;
     }
 }
