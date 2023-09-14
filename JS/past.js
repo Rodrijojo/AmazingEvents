@@ -1,49 +1,43 @@
-const eventos = data.events;
-
 import { crearCheckbox, filtrarEventosCategoria, filtrarEventosSearch, aplicarFiltros, mostrarMensaje, crearCardPast} from '../Modules/functions.js';
 
-// Cards
-let currentDate = data.currentDate;
-currentDate = currentDate.split("-");
-
 const cardsContainer = document.getElementById("cardsContainer")
+const checkboxContainer = document.querySelector("#checkbox");
+const checkboxEvent = document.getElementById("checkbox")
+const categoryFilter = ".category_filter"
+const searchBar = document.getElementById("searchBar")
+const searchButton = document.getElementById("searchButton")
 
-crearCardPast(eventos, cardsContainer, currentDate)
+const URL_API = 'https://mindhub-xj03.onrender.com/api/amazing'
 
-// Checkbox
+let eventos
+fetch( URL_API )
+    .then( response => response.json() )
+    .then( ( data )  => {
+        eventos = data.events
+        let currentDate = data.currentDate;
+        currentDate = currentDate.split("-")
+        let nameEventos = []
+        for (const evento of eventos) {
+        nameEventos.push(evento.name)
+        }
+        crearCardPast(eventos, cardsContainer, currentDate)
+        crearCheckbox(eventos, checkboxContainer)
 
-let checkboxContainer = document.querySelector("#checkbox");
+        checkboxEvent.addEventListener("change", function(){
+        crearCardPast(filtrarEventosCategoria(eventos, categoryFilter), cardsContainer, currentDate)
+        })
 
-crearCheckbox(eventos, checkboxContainer)
-
-// filtro por checkbox
-
-let checkboxEvent = document.getElementById("checkbox")
-//let checkboxCategory = document.querySelector(".checkboxLabel")
-let categoryFilter = ".category_filter"
-
-checkboxEvent.addEventListener("change", function(){
-  crearCardPast(filtrarEventosCategoria(eventos, categoryFilter), cardsContainer, currentDate)
-})
-
-// filtro por search bar y cruzado
-
-let searchBar = document.getElementById("searchBar")
-let searchButton = document.getElementById("searchButton")
+        searchButton.addEventListener("click", function (event) {
+        event.preventDefault()
+        let eventosFiltrados = aplicarFiltros(eventos, categoryFilter, nameEventos, searchBar);
+        if(eventosFiltrados.length === 0){
+            mostrarMensaje();
+        }
+        else{
+            crearCardPast(eventosFiltrados, cardsContainer, currentDate);
+        }
+        })
+    })
+    .catch( err => console.log(err))
 
 
-let nameEventos = []
-for (const evento of eventos) {
-  nameEventos.push(evento.name)
-}
-
-searchButton.addEventListener("click", function (event) {
-  event.preventDefault()
-  let eventosFiltrados = aplicarFiltros(eventos, categoryFilter, nameEventos, searchBar);
-  if(eventosFiltrados.length === 0){
-    mostrarMensaje();
-  }
-  else{
-    crearCardPast(eventosFiltrados, cardsContainer, currentDate);
-  }
-})

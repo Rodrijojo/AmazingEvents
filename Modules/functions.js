@@ -117,6 +117,7 @@ export function crearCardPast(eventos, container, currentDate) {
 }
 
 export function crearCardUpcoming(eventos, container, currentDate){
+    
     let card = "";
     for (const evento of eventos) {
         if(compararFecha(evento.date, currentDate) === "mayor"){
@@ -137,4 +138,195 @@ export function crearCardUpcoming(eventos, container, currentDate){
     }
 
     container.innerHTML = card;
+}
+
+export function crearDetails(eventos, currentDate, idDetail) {
+
+    let evento = eventos.find(evento => evento._id == idDetail)
+    let contenedorDetails = document.getElementById("Details1")
+
+    if(compararFecha(evento.date, currentDate) === "menor"){ //no reconoce .date 
+        
+        contenedorDetails.innerHTML = `<img src="${evento.image}" alt="Details Image" class="w-50 m-4">
+                                    <div class="d-flex flex-column align-items-center justify-content-around border-card m-4">
+                                        <h3>${evento.name}</h3>
+                                        <p>${evento.description}</p>
+                                        <p>Date: ${evento.date}</p>
+                                        <p>Where at: ${evento.place}</p>
+                                        <p>Capacity: ${evento.capacity}</p>
+                                        <p>Price: $${evento.price}</p>
+                                        <p>Assistance: ${evento.assistance}</p>
+                                    </div>`    
+    }
+    else{
+        
+        contenedorDetails.innerHTML = `<img src="${evento.image}" alt="Details Image" class="w-50 m-4">
+                                    <div class="d-flex flex-column align-items-center justify-content-around border-card m-4">
+                                        <h3>${evento.name}</h3>
+                                        <p>${evento.description}</p>
+                                        <p>Date: ${evento.date}</p>
+                                        <p>Where at: ${evento.place}</p>
+                                        <p>Capacity: ${evento.capacity}</p>
+                                        <p>Price: $${evento.price}</p>
+                                        <p>Estimate: ${evento.estimate}</p>
+                                    </div>`
+    }
+}
+
+export function highestAssistance (eventos) {
+    let highestAssistance = 0
+    let highestEvent
+
+    eventos.forEach( evento => {
+        let asistenciaAux = evento.assistance/(evento.capacity/100)
+        if(asistenciaAux > highestAssistance){
+            highestAssistance = asistenciaAux
+            highestEvent = evento.name
+        }
+    })
+
+    return [highestEvent, highestAssistance]
+}
+
+export function lowestAssistance (eventos, currentDate) {
+    let lowestAssistance = 1000
+    let lowestEvent
+    let fecha
+
+    eventos.forEach( evento => {
+        fecha = compararFecha(evento.date, currentDate)
+        if(fecha == "menor"){
+            let asistenciaAux = evento.assistance/(evento.capacity/100)
+            if(asistenciaAux < lowestAssistance){
+                lowestAssistance = asistenciaAux
+                lowestEvent = evento.name
+            }
+        }
+        else{
+            let asistenciaAux = evento.estimate/(evento.capacity/100)
+            if(asistenciaAux < lowestAssistance){
+                lowestAssistance = asistenciaAux
+                lowestEvent = evento.name
+            }
+        }
+    })
+    return [lowestEvent, lowestAssistance]
+}
+
+export function largerCapacity(eventos) {
+    let largestCapacity = 0
+    let largestEvent
+
+    eventos.forEach( evento => {
+        if( evento.capacity > largestCapacity ){
+            largestCapacity = evento.capacity;
+            largestEvent = evento.name
+        }
+    })
+    return [largestEvent, largestCapacity]
+}
+
+export function crearTabla1 (eventos, container, currentDate) {
+    
+    let eventoConMasAsistencia = highestAssistance(eventos, currentDate)[0]
+    let mayorAsistencia = highestAssistance(eventos, currentDate)[1]
+    let eventoConMenosAsistencia = lowestAssistance(eventos, currentDate)[0]
+    let menorAsistencia = lowestAssistance(eventos, currentDate)[1]
+    let eventoConMayorCapacidad = largerCapacity(eventos)[0]
+    let mayorCapacidad = largerCapacity(eventos)[1]
+    
+    container.innerHTML =   `<td>${eventoConMasAsistencia} %${mayorAsistencia}</td>
+                            <td>${eventoConMenosAsistencia} %${menorAsistencia}</td>
+                            <td>${eventoConMayorCapacidad} capacidad: ${mayorCapacidad}</td>`
+}
+
+export function filtroEventosPorFecha (eventos, currentDate) {
+    let pastEvents = []
+    let upcomingEvents = []
+
+    eventos.forEach(evento => {
+        if(compararFecha(evento.date, currentDate) == "mayor"){
+            upcomingEvents.push(evento)
+        }
+        else{
+            pastEvents.push(evento)
+        }
+    })
+    return [pastEvents, upcomingEvents]
+}
+
+// esta funcion me guarda un array con las categorias pasando por parametro un array de eventos
+export function guardarCategory (eventos) {
+    let categorias = []
+    for (const evento of eventos) {
+        if(!categorias.includes(evento.category)){
+            categorias.push(evento.category)
+        }
+    }
+    return categorias;
+}
+
+export function agruparPorCategoria (eventos, categorias) {
+    let arrayPorCategoria = []
+    for (const categoria of categorias) {
+        arrayPorCategoria.push(eventos.filter(evento => evento.category === categoria))
+    }
+    return arrayPorCategoria
+}
+
+// crea un array de objetos por cada categoria con la informacion acumulada
+export function acumulador (arrayEventos) {
+    let arrayAcumulado = []
+    for (const subArray of arrayEventos) {
+        arrayAcumulado.push(subArray.reduce((acc, cur) => {
+            acc.revenue += cur.assistance * cur.price
+            acc.assistance += cur.assistance
+            acc.capacity += cur.capacity
+            acc.porcentaje += (cur.assistance / (cur.capacity/100)) / subArray.length
+            return acc
+        }, {categoria: subArray[0].category, revenue: 0, assistance: 0, capacity: 0, porcentaje: 0}))
+    }
+    return arrayAcumulado
+}
+
+
+export function crearTabla3 (infoCategoria, container) {
+    let tabla = ""
+    for (const categoria of infoCategoria) {
+        tabla += `<tr>
+                    <td>${categoria.categoria}</td>
+                    <td>$${categoria.revenue}</td>
+                    <td>%${categoria.porcentaje}<br></td>
+                </tr>`
+    }
+
+    container.innerHTML = tabla
+}
+
+export function acumuladorUpcoming (arrayEventos) {
+    let arrayAcumulado = []
+    for (const subArray of arrayEventos) {
+        arrayAcumulado.push(subArray.reduce((acc, cur) => {
+            acc.revenue += cur.estimate * cur.price
+            acc.estimate += cur.estimate
+            acc.capacity += cur.capacity
+            acc.porcentaje += (cur.estimate / (cur.capacity/100)) / subArray.length
+            return acc
+        }, {categoria: subArray[0].category, revenue: 0, estimate: 0, capacity: 0, porcentaje: 0}))
+    }
+    console.log(arrayAcumulado)
+    return arrayAcumulado
+}
+
+export function crearTabla2 (infoCategoria, container) {
+    let tabla = ""
+    for (const categoria of infoCategoria) {
+        tabla += `<tr>
+                    <td>${categoria.categoria}</td>
+                    <td>$${categoria.revenue}</td>
+                    <td>%${categoria.porcentaje}<br></td>
+                </tr>`
+    }
+
+    container.innerHTML = tabla
 }
