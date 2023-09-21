@@ -173,6 +173,8 @@ export function crearDetails(eventos, currentDate, idDetail) {
     }
 }
 
+// toma un array de eventos (pasados solamente) y devuelve un array que contiene el nombre del evento con
+// mayor asistencia y el porcentaje de mayor asistencia
 export function highestAssistance (eventos) {
     let highestAssistance = 0
     let highestEvent
@@ -188,6 +190,9 @@ export function highestAssistance (eventos) {
     return [highestEvent, highestAssistance]
 }
 
+// toma un array de eventos (pasados solamente) y la fecha actual como un array de numeros
+// y devuelve un array que contiene el nombre del evento con
+// menor asistencia y el porcentaje de menor asistencia
 export function lowestAssistance (eventos, currentDate) {
     let lowestAssistance = 1000
     let lowestEvent
@@ -213,6 +218,7 @@ export function lowestAssistance (eventos, currentDate) {
     return [lowestEvent, lowestAssistance]
 }
 
+// toma un array de eventos y devuelve el nombre del evento con mayot capacidad y su capacidad
 export function largerCapacity(eventos) {
     let largestCapacity = 0
     let largestEvent
@@ -226,6 +232,7 @@ export function largerCapacity(eventos) {
     return [largestEvent, largestCapacity]
 }
 
+// toma un array de eventos, un contenedor del html y la fecha actual y crea la primera tabla
 export function crearTabla1 (eventos, container, currentDate) {
     
     let eventoConMasAsistencia = highestAssistance(eventos, currentDate)[0]
@@ -235,11 +242,13 @@ export function crearTabla1 (eventos, container, currentDate) {
     let eventoConMayorCapacidad = largerCapacity(eventos)[0]
     let mayorCapacidad = largerCapacity(eventos)[1]
     
-    container.innerHTML =   `<td>${eventoConMasAsistencia} %${mayorAsistencia}</td>
+    container.innerHTML =   `<td>${eventoConMasAsistencia} %${mayorAsistencia.toFixed(2)}</td>
                             <td>${eventoConMenosAsistencia} %${menorAsistencia}</td>
                             <td>${eventoConMayorCapacidad} capacidad: ${mayorCapacidad}</td>`
 }
 
+//toma un array de eventos y la fecha actual y devuelve separados en dos arrays dentro de un array los
+// eventos pasados y futuros
 export function filtroEventosPorFecha (eventos, currentDate) {
     let pastEvents = []
     let upcomingEvents = []
@@ -263,9 +272,11 @@ export function guardarCategory (eventos) {
             categorias.push(evento.category)
         }
     }
+    //Array.from(new Set (...eventos.map(evento => evento.category)))
     return categorias;
 }
 
+// toma un array de eventos y un array de categorias y agrupa los eventos con la misma categoria
 export function agruparPorCategoria (eventos, categorias) {
     let arrayPorCategoria = []
     for (const categoria of categorias) {
@@ -289,20 +300,21 @@ export function acumulador (arrayEventos) {
     return arrayAcumulado
 }
 
-
+// toma la informacion acumulada en acumulador y un container y crea la tabla 3
 export function crearTabla3 (infoCategoria, container) {
     let tabla = ""
     for (const categoria of infoCategoria) {
         tabla += `<tr>
                     <td>${categoria.categoria}</td>
                     <td>$${categoria.revenue}</td>
-                    <td>%${categoria.porcentaje}<br></td>
+                    <td>%${categoria.porcentaje.toFixed(2)}<br></td>
                 </tr>`
     }
 
     container.innerHTML = tabla
 }
 
+//funcion acumulador pero con estructura distinta para upcoming events
 export function acumuladorUpcoming (arrayEventos) {
     let arrayAcumulado = []
     for (const subArray of arrayEventos) {
@@ -318,13 +330,14 @@ export function acumuladorUpcoming (arrayEventos) {
     return arrayAcumulado
 }
 
+// crea la tabla 2
 export function crearTabla2 (infoCategoria, container) {
     let tabla = ""
     for (const categoria of infoCategoria) {
         tabla += `<tr>
                     <td>${categoria.categoria}</td>
                     <td>$${categoria.revenue}</td>
-                    <td>%${categoria.porcentaje}<br></td>
+                    <td>%${categoria.porcentaje.toFixed(2)}<br></td>
                 </tr>`
     }
 

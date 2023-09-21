@@ -1,20 +1,23 @@
 import { crearTabla1, filtroEventosPorFecha, guardarCategory, agruparPorCategoria, acumulador, crearTabla3, acumuladorUpcoming, crearTabla2 } from "../Modules/functions.js"
 
-
+// Contenedores dentro del HTML de las tablas
 const primeraTabla = document.getElementById("primeraTabla")
 const segundaTabla = document.getElementById("segundaTabla")
 const terceraTabla = document.getElementById("terceraTabla")
 
+// ruta de la API
 const URL_API = 'https://mindhub-xj03.onrender.com/api/amazing'
 
 let eventos
+
+// fetch para manejar la data de la API
 fetch( URL_API )
   .then( response => response.json() )
   .then( ( data )  => {
-    eventos = data.events
+    eventos = data.events  // almacenamos los datos de los eventos
     let currentDate = data.currentDate.split("-")
-    crearTabla1(filtroEventosPorFecha(eventos, currentDate)[0], primeraTabla, currentDate)
-    let eventosFiltrados = filtroEventosPorFecha(eventos, currentDate)
+    let eventosFiltrados = filtroEventosPorFecha(eventos, currentDate)  // guardamos los eventos separados en past y upcoming
+    crearTabla1(eventosFiltrados[0], primeraTabla, currentDate)
     let categoriasPast = guardarCategory(eventosFiltrados[0])
     let categoriasUpcoming = guardarCategory(eventosFiltrados[1])
     let eventosAgrupadosPast = agruparPorCategoria(eventosFiltrados[0], categoriasPast)

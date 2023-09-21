@@ -1,4 +1,4 @@
-import { crearCardUpcoming, crearCheckbox, filtrarEventosCategoria, filtrarEventosSearch, aplicarFiltros, mostrarMensaje } from '../Modules/functions.js';
+import { crearCardUpcoming, crearCheckbox, filtrarEventosCategoria, filtroEventosPorFecha, aplicarFiltros, mostrarMensaje } from '../Modules/functions.js';
 
 const cardsContainer = document.getElementById("cardsContainer")
 const checkboxContainer = document.querySelector("#checkbox");
@@ -14,15 +14,16 @@ fetch( URL_API )
     .then( response => response.json() )
     .then( ( data )  => {
         eventos = data.events
-        console.log(data.events)
-        let nameEventos = []
-        for (const evento of eventos) {
-        nameEventos.push(evento.name)
-        }
         let currentDate = data.currentDate;
         currentDate = currentDate.split("-");
+        const upcomingEvents = filtroEventosPorFecha(eventos, currentDate)[1]
+        console.log(upcomingEvents)
+        let nameEventos = []
+        for (const evento of upcomingEvents) {
+            nameEventos.push(evento.name)
+        }
         crearCardUpcoming(eventos, cardsContainer, currentDate)
-        crearCheckbox(eventos, checkboxContainer)
+        crearCheckbox(upcomingEvents, checkboxContainer)
         checkboxEvent.addEventListener("change", function(){
         crearCardUpcoming(filtrarEventosCategoria(eventos, categoryFilter), cardsContainer, currentDate)
         })

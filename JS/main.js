@@ -14,7 +14,6 @@ let eventos
 fetch( URL_API )
   .then( response => response.json() )
   .then( ( data )  => {
-    console.log(data.events)
     eventos = data.events
     let nameEventos = []
     for (const evento of eventos) {
